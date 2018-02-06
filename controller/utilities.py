@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 
 import pendulum
 import json
+import os
 
 from model.Aged import Aged
 from model.Message import Message
@@ -221,7 +222,7 @@ def mapProfile(aged_dict):
 
 
 def getApipath():
-    cfg = open('/home/hoclab/http/c4aengines/controller/config.cfg', 'r')
+    cfg = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.cfg'), 'r')
     for line in cfg:
         words = line.split(' ')
         if words[0] == 'ApiPath:':
@@ -232,7 +233,7 @@ def getApipath():
 
 
 def getDeliverypath():
-    cfg = open('/home/hoclab/http/c4aengines/controller/config.cfg', 'r')
+    cfg = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.cfg'), 'r')
     for line in cfg:
         words = line.split(' ')
         if words[0] == 'DeliveryPath:':

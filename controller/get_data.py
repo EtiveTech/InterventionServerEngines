@@ -70,9 +70,9 @@ def getResource(id_resource):
     resource.subjects = json_resource['subjects']
 
     # check dates are strings
-    if isinstance(json_resource['from_date'], basestring):
+    if isinstance(json_resource['from_date'], str):
         resource.from_date = pendulum.parse(json_resource['from_date'])
-    if isinstance(json_resource['to_date'], basestring):
+    if isinstance(json_resource['to_date'], str):
         resource.to_date = pendulum.parse(json_resource['to_date'])
 
     return resource

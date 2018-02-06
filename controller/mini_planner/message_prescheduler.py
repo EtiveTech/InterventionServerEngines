@@ -40,7 +40,7 @@ def schedule(request, resource, template, aged):
         nmsg = template.nmsgmax
 
     # creates miniplan that is a list of messages
-    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in xrange(nmsg)]
+    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in range(nmsg)]
 
     channels = getChannelsAvailable(template, aged)
 
@@ -172,7 +172,7 @@ def scheduleEDPPendulum(request, resource, template, aged):
         nmsg = template.nmsgmax
 
     # creates miniplan that is a list of messages
-    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in xrange(nmsg)]
+    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in range(nmsg)]
 
     channels = getChannelsAvailable(template, aged)
 
@@ -262,7 +262,7 @@ def scheduleLPendulum(request, resource, template, aged):
     else:
         nmsg = template.nmsgmax
 
-    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in xrange(nmsg)]
+    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in range(nmsg)]
 
     valid_interval = endtime - startime
     if valid_interval > period:
@@ -356,7 +356,7 @@ def schedulePPendulum(request, resource, template, aged):
     else:
         nmsg = template.nmsgmax
 
-    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in xrange(nmsg)]
+    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in range(nmsg)]
 
     miniplanID = uuid.uuid4()
 
@@ -449,7 +449,7 @@ def scheduleEquallyDividedPeriod(request, resource, template, aged):
     step_send_msg = valid_interval / nmsg
 
     # creates miniplan that is a list of messages
-    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in xrange(nmsg)]
+    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in range(nmsg)]
 
     channels = getChannelsAvailable(template, aged)
 
@@ -522,7 +522,7 @@ def scheduleLogarithmic(request, resource, template, aged):
     else:
         nmsg = template.nmsgmax
 
-    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in xrange(nmsg)]
+    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in range(nmsg)]
 
     valid_interval = endtime - startime
     if valid_interval > period:
@@ -597,7 +597,7 @@ def schedulePeriodic(request, resource, template, aged):
     else:
         nmsg = template.nmsgmax
 
-    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in xrange(nmsg)]
+    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in range(nmsg)]
 
     channels = getChannelsAvailable(template, aged)
 
