@@ -220,28 +220,27 @@ def mapProfile(aged_dict):
         aged.hour_preference = aged_dict['hour_preference']
     return aged
 
+def getConfigString(key):
+    value = ""
+    cfg = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.cfg'), 'r')
+    for line in cfg:
+        words = line.split(' ')
+        if words[0] == key + ':':
+            value = words[1].strip()
+    cfg.close()
+    return value
 
 def getApipath():
-    cfg = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.cfg'), 'r')
-    for line in cfg:
-        words = line.split(' ')
-        if words[0] == 'ApiPath:':
-            apipath = words[1].rstrip('\n')
+    return getConfigString('ApiPath')
 
-    cfg.close()
-    return apipath
+def getDeliveryPath():
+    return getConfigString('DeliveryPath')
 
+def getDeliveryUser():
+    return getConfigString('DeliveryUser')
 
-def getDeliverypath():
-    cfg = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.cfg'), 'r')
-    for line in cfg:
-        words = line.split(' ')
-        if words[0] == 'DeliveryPath:':
-            deliverypath = words[1].rstrip('\n')
-
-    cfg.close()
-    return deliverypath
-
+def getDeliveryPassword():
+    return getConfigString('DeliveryPassword')
 
 def encodeMessage(message):
     dict = {}
