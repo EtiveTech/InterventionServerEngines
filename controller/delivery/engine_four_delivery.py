@@ -3,6 +3,7 @@
 
 from json import dumps
 
+# import logging
 import requests
 import os
 import re
@@ -18,8 +19,8 @@ def sendIntervention(message, aged):
     :return: the response of the delivery system
     '''
 
-    params = {"user": '"' + getDeliveryUser() + '"',
-              "pass": '"' + getDeliveryPassword() + '"',
+    params = {"user": getDeliveryUser(),
+              "pass": getDeliveryPassword(),
               "mode": "relay",
               "msg": message.message_text,
               "sendTime": message.date + ' ' + message.time}  # DD/MM/YYYY HH:mm
@@ -27,7 +28,8 @@ def sendIntervention(message, aged):
     if message.channel == "SMS":
         params['channel'] = "sms"
         params['to'] = aged.mobile_phone_number
-        params.msg = params.msg.replace("'"," ").encode('utf8')
+        # encode('utf8') changes the string to an array of bytes which stops the JSON encode from working
+        params['msg'] = params['msg'].replace("'"," ") #.encode('utf8')
 
     elif message.channel == 'Email':
         params['channel'] = "email"
@@ -45,5 +47,6 @@ def sendIntervention(message, aged):
         params['channel'] = "whatsapp"
         params['to'] = aged.mobile_phone_number
 
-    print(params)
-    return requests.post(getDeliveryPath() + "sendIntervention/", data=dumps(params)).json()
+    # logging.debug("Intervention params " + dumps(params))
+    return requests.post(getDeliveryPath() + "sendIntervention/", data=dumps(params)).json() if 'to' in params else ""
+
