@@ -15,19 +15,19 @@ def e1():
 
 @app.route('/engine_one', methods=['GET', 'POST'])
 def e1():
-    if request.method == 'POST':
-        if (verifyToken(request.form['token'])):
+    if (verifyToken(request.form['token'])):
+        if request.method == 'POST':
             return launch_engine_one_Pendulum(request)
-        else:
-            abort(401)
+    else:
+        abort(401)
 
 @app.route('/engine_three', methods=['GET', 'POST'])
 def e2():
-    if request.method == 'POST':
-        if (verifyToken(request.form['token'])):
+    if (verifyToken(request.form['token'])):
+        if request.method == 'POST':
             return launch_engine_three(request)
-        else:
-            abort(401)
+    else:
+        abort(401)
 
 if __name__ == '__main__':
   app.run()
