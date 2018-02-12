@@ -9,6 +9,8 @@ from model.Resource import Resource
 from model.ResourceMessage import ResourceMessage
 from model.Template import Template
 
+def verifyToken(token):
+    return (requests.get(getApipath() + 'verifyToken/' + token).status_code == 204);
 
 def getTemplate(id_template):
     '''

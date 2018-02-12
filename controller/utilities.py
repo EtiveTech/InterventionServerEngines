@@ -12,7 +12,6 @@ from model.Message import Message
 from model.Resource import Resource
 from model.Template import Template
 
-
 def mapDay(on_day):
     day_of_event = None
     if on_day == 'Monday':
