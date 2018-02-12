@@ -2,6 +2,7 @@ import json
 
 import pendulum
 import requests
+import logging
 
 from controller.utilities import getApipath, decodeMessage, decodeTemporaryMessage
 from model.Aged import Aged
@@ -10,7 +11,10 @@ from model.ResourceMessage import ResourceMessage
 from model.Template import Template
 
 def verifyToken(token):
-    return (requests.get(getApipath() + 'verifyToken/' + token).status_code == 204);
+    logging.debug("token: " + token)
+    code = requests.get(getApipath() + 'verifyToken/' + token).status_code
+    logging.debug("verifyToken response: " + str(code))
+    return (code == 204);
 
 def getTemplate(id_template):
     '''
