@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 import pendulum
 import json
 import os
+import hashlib
 
 from model.Aged import Aged
 from model.Message import Message
@@ -239,7 +240,9 @@ def getDeliveryUser():
     return getConfigString('DeliveryUser')
 
 def getDeliveryPassword():
-    return getConfigString('DeliveryPassword')
+    password = getConfigString('DeliveryPassword')
+    hashedPassword = hashlib.sha256(password.encode('utf-8')).hexdigest()
+    return hashedPassword
 
 def encodeMessage(message):
     dict = {}

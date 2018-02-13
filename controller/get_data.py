@@ -13,7 +13,6 @@ from model.Template import Template
 def verifyToken(request):
     result = False
     try:
-        # token = request.form['token']
         token = request.cookies.get('token')
         statusCode = requests.get(getApipath() + 'verifyToken/' + token).status_code
         result = (statusCode == 204)
