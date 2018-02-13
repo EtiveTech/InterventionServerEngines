@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 @app.route('/engine_one', methods=['GET', 'POST'])
 def e1():
-    if (hasattr(request.form, 'token') and verifyToken(request.form['token'])):
+    if (verifyToken(request)):
         if request.method == 'POST':
             return launch_engine_one_Pendulum(request)
         else:
@@ -20,7 +20,7 @@ def e1():
 
 @app.route('/engine_three', methods=['GET', 'POST'])
 def e2():
-    if (hasattr(request.form, 'token') and verifyToken(request.form['token'])):
+    if (verifyToken(request)):
         if request.method == 'POST':
             return launch_engine_three(request)
         else:
