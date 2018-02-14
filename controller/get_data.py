@@ -10,17 +10,6 @@ from model.Resource import Resource
 from model.ResourceMessage import ResourceMessage
 from model.Template import Template
 
-def verifyToken(request):
-    result = False
-    try:
-        token = request.cookies.get('token')
-        statusCode = requests.get(getApipath() + 'verifyToken/' + token).status_code
-        result = (statusCode == 204)
-    except NameError:
-        # Do nothing
-        logging.error("Engine request made without valid token")
-    return result
-
 def getTemplate(id_template):
     '''
     Makes a API call to get the details of a template having the id, fill a Template class and returns it
