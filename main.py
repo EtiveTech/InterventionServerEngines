@@ -2,7 +2,6 @@
 
 from flask import Flask, request, jsonify
 
-from controller.get_data import verifyToken
 from controller.mini_planner.engine_one_miniplanner import launch_engine_one, launch_engine_one_Pendulum
 from controller.planner.engine_three import launch_engine_three
 
