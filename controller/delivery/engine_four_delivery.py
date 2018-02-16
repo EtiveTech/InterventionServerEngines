@@ -19,34 +19,43 @@ def sendIntervention(message, aged):
     :return: the response of the delivery system
     '''
 
-    params = {"user": getDeliveryUser(),
-              "pass": getDeliveryPassword(),
-              "mode": "relay",
-              "msg": message.message_text,
-              "sendTime": message.date + ' ' + message.time}  # DD/MM/YYYY HH:mm
+    msg = message.message_text
 
     if message.channel == "SMS":
-        params['channel'] = "sms"
-        params['to'] = aged.mobile_phone_number
+        channel = "sms"
+        to = aged.mobile_phone_number
         # encode('utf8') changes the string to an array of bytes which stops the JSON encode from working
-        params['msg'] = params['msg'].replace("'"," ") #.encode('utf8')
+        msg = msg.replace("'"," ") #.encode('utf8')
 
     elif message.channel == 'Email':
-        params['channel'] = "email"
-        params['to'] = aged.email
+        channel = "email"
+        to = aged.email
 
     elif message.channel == 'Telegram':
-        params['channel'] = "telegram"
-        params['to'] = aged.telegram
+        channel = "telegram"
+        to = aged.telegram
 
     elif message.channel == 'Facebook':
-        params['channel'] = "fbm"
-        params['to'] = aged.facebook
+        channel = "fbm"
+        to = aged.facebook
 
     elif message.channel == 'Whatsapp':
-        params['channel'] = "whatsapp"
-        params['to'] = aged.mobile_phone_number
+        channel = "whatsapp"
+        to = aged.mobile_phone_number
 
-    # logging.debug("Intervention params " + dumps(params))
-    return requests.post(getDeliveryPath() + "sendIntervention/", data=dumps(params)).json() if 'to' in params else ""
+    params = {
+        "user": getDeliveryUser(),
+        "pass": getDeliveryPassword(),
+        "channel": channel,
+        "mode": "relay",
+        "to": to,
+        "msg": msg,
+        "sendTime": message.date + ' ' + message.time # DD/MM/YYYY HH:mm
+    }
 
+    jsonParams = dumps(params)
+    # logging.debug("Intervention params: " + jsonParams)
+    result = requests.post(getDeliveryPath() + "sendIntervention/", data = jsonParams).json()
+    # logging.debug("Intervention response: " + result['response'])
+
+    return result
