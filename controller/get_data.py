@@ -2,13 +2,13 @@ import json
 
 import pendulum
 import requests
+import logging
 
 from controller.utilities import getApipath, decodeMessage, decodeTemporaryMessage
 from model.Aged import Aged
 from model.Resource import Resource
 from model.ResourceMessage import ResourceMessage
 from model.Template import Template
-
 
 def getTemplate(id_template):
     '''
@@ -70,9 +70,9 @@ def getResource(id_resource):
     resource.subjects = json_resource['subjects']
 
     # check dates are strings
-    if isinstance(json_resource['from_date'], basestring):
+    if isinstance(json_resource['from_date'], str):
         resource.from_date = pendulum.parse(json_resource['from_date'])
-    if isinstance(json_resource['to_date'], basestring):
+    if isinstance(json_resource['to_date'], str):
         resource.to_date = pendulum.parse(json_resource['to_date'])
 
     return resource

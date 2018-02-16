@@ -65,8 +65,10 @@ def launch_engine_three(post_req):
                 #c+=1
                 tempDate = parse(m.date)
                 tempTime = parse(m.time)
-                m.date = tempDate.format('DD/MM/YYYY', formatter='alternative')
-                m.time = tempTime.format('HH:mm', formatter='alternative')
+                # m.date = tempDate.format('DD/MM/YYYY', formatter='alternative')
+                # m.time = tempTime.format('HH:mm', formatter='alternative')
+                m.date = tempDate.strftime('%d/%m/%Y')
+                m.time = tempTime.strftime('%H:%M')
                 interventionResponse = sendIntervention(m, aged)
 
     # post in DB
