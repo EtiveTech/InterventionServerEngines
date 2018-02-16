@@ -5,13 +5,12 @@ from datetime import datetime, timedelta
 
 import pendulum
 import json
-import os
-import hashlib
 
 from model.Aged import Aged
 from model.Message import Message
 from model.Resource import Resource
 from model.Template import Template
+
 
 def mapDay(on_day):
     day_of_event = None
@@ -59,7 +58,7 @@ def convertPendulum(request, template, resource):
     :return: 3 pendulum from from_date,to_date and period
     '''
     expirationtime = None
-    print(type(request.from_date))
+    print type(request.from_date)
     startime = pendulum.parse(request.from_date)
     endtime = pendulum.parse(request.to_date)
     if resource.to_date != None:
@@ -88,12 +87,14 @@ def checkMsgsOneDay(miniplan, endtime):
         if miniplan[i].date == None:
             c += 1
 
-        # elif miniplan[i].date == miniplan[i - 1].date:
-        #     miniplan[i].date += timedelta(days=1)
-        #
-        #     if miniplan[i].date > endtime.date():
-        #         miniplan[i].date -= timedelta(days=1)
-        #         miniplan[i - 1].date -= timedelta(days=1)
+	'''
+        elif miniplan[i].date == miniplan[i - 1].date:
+            miniplan[i].date += timedelta(days=1)
+
+            if miniplan[i].date > endtime.date():
+                miniplan[i].date -= timedelta(days=1)
+                miniplan[i - 1].date -= timedelta(days=1)
+	'''
 
     while c > 0:
         miniplan.pop()
@@ -220,29 +221,28 @@ def mapProfile(aged_dict):
         aged.hour_preference = aged_dict['hour_preference']
     return aged
 
-def getConfigString(key):
-    value = ""
-    cfg = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.cfg'), 'r')
-    for line in cfg:
-        words = line.split(' ')
-        if words[0] == key + ':':
-            value = words[1].strip()
-    cfg.close()
-    return value
 
 def getApipath():
-    return getConfigString('ApiPath')
+    cfg = open('/home/hoclab/http/c4aengines/controller/config.cfg', 'r')
+    for line in cfg:
+        words = line.split(' ')
+        if words[0] == 'ApiPath:':
+            apipath = words[1].rstrip('\n')
 
-def getDeliveryPath():
-    return getConfigString('DeliveryPath')
+    cfg.close()
+    return apipath
 
-def getDeliveryUser():
-    return getConfigString('DeliveryUser')
 
-def getDeliveryPassword():
-    password = getConfigString('DeliveryPassword')
-    hashedPassword = hashlib.sha256(password.encode('utf-8')).hexdigest()
-    return hashedPassword
+def getDeliverypath():
+    cfg = open('/home/hoclab/http/c4aengines/controller/config.cfg', 'r')
+    for line in cfg:
+        words = line.split(' ')
+        if words[0] == 'DeliveryPath:':
+            deliverypath = words[1].rstrip('\n')
+
+    cfg.close()
+    return deliverypath
+
 
 def encodeMessage(message):
     dict = {}

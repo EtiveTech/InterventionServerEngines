@@ -24,8 +24,7 @@ def encodeResponse(errors, miniplan, req=None):
     for message in miniplan:
         json_message = {}
 
-        # for key, value in message.__dict__.iteritems():
-        for key, value in message.__dict__.items():
+        for key, value in message.__dict__.iteritems():
             if not callable(value) and not key.startswith('__'):
                 if key == 'message_text':
                     json_message[key] = value.replace("'", " ")
@@ -72,8 +71,7 @@ def encodePlan(errors, plan):
     for message in plan:
         json_message = {}
 
-        # for key, value in message.__dict__.iteritems():
-        for key, value in message.__dict__.items():
+        for key, value in message.__dict__.iteritems():
             if not callable(value) and not key.startswith('__'):
                 json_message[key] = value
         plan_message[id] = json_message

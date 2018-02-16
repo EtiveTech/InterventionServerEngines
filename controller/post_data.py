@@ -4,7 +4,7 @@
 import requests
 from pendulum import Date
 
-from controller.utilities import getApipath, encodeMessage, dictToString
+from utilities import getApipath, encodeMessage, dictToString
 
 
 def postMiniplanGenerated(miniplan_messages, req):
@@ -21,11 +21,11 @@ def postMiniplanGenerated(miniplan_messages, req):
               'intervention_id': req.intervention_session_id, 'is_committed': 'True','aged_id':req.aged_id,
               'miniplan_body': miniplan_messages, 'miniplan_id': req.miniplan}
 
-    print(params)
+    print params
 
     r = requests.post(getApipath() + "setNewMiniplanGenerated/", data=params).json()
 
-    print(r)
+    print r
 
     if 'new_id' in r[0]:
         return r[0]['new_id'], r[0]['temporary_id']
@@ -47,11 +47,11 @@ def postGeneratedMessage(message, jsonMessage):
                      'miniplan_generated_id': message.miniplan_id,
                      'intervention_session_id': message.intervention_session_id}
 
-    print(paramsMessage)
+    print paramsMessage
 
     r = requests.post(getApipath() + "setNewMiniplanGeneratedMessage/", data=paramsMessage).json()
 
-    print(r)
+    print r
 
 
 def postMiniplanFinal(temporaryMiniplan):
@@ -92,4 +92,4 @@ def postFinalMessage(message):
 
     r = requests.post(getApipath() + "setNewMiniplanFinalMessage/", data=paramsMessage).json()
 
-    print(r)
+    print r

@@ -3,11 +3,10 @@
 
 from json import dumps
 
-# import logging
 import requests
 import os
 import re
-from controller.utilities import getDeliveryPath, getDeliveryUser, getDeliveryPassword
+from controller.utilities import getDeliverypath
 
 
 def sendIntervention(message, aged):
@@ -18,35 +17,62 @@ def sendIntervention(message, aged):
     :param aged: the aged that receives the message
     :return: the response of the delivery system
     '''
-
-    params = {"user": getDeliveryUser(),
-              "pass": getDeliveryPassword(),
-              "mode": "relay",
-              "msg": message.message_text,
-              "sendTime": message.date + ' ' + message.time}  # DD/MM/YYYY HH:mm
-
     if message.channel == "SMS":
-        params['channel'] = "sms"
-        params['to'] = aged.mobile_phone_number
-        # encode('utf8') changes the string to an array of bytes which stops the JSON encode from working
-        params['msg'] = params['msg'].replace("'"," ") #.encode('utf8')
+        params = {"user": "LCC", "pass": "274a54de7d27dbfb66780c8c4b4dd947bc9ed00106cd96863c8e38937c7a1eaf",
+                  "channel": "sms",
+                  "mode": "relay",
+                  "to": aged.mobile_phone_number,
+                  "msg": message.message_text.encode('utf8').replace("'"," "),
+                  "sendTime": message.date + ' ' + message.time}  # DD/MM/YYYY HH:mm
+
+        print params
+        r = requests.post(getDeliverypath() + "sendIntervention/", data=dumps(params)).json()
+	print r
 
     elif message.channel == 'Email':
-        params['channel'] = "email"
-        params['to'] = aged.email
+
+        params = {"user": "LCC", "pass": "274a54de7d27dbfb66780c8c4b4dd947bc9ed00106cd96863c8e38937c7a1eaf",
+                  "channel": "email",
+                  "mode": "relay",
+                  "to": aged.email,
+                  "msg": message.message_text,
+                  "sendTime": message.date + " " + message.time}  # DD/MM/YYYY HH:mm
+
+        print params
+        r = requests.post(getDeliverypath() + "sendIntervention/", data=dumps(params)).json()
 
     elif message.channel == 'Telegram':
-        params['channel'] = "telegram"
-        params['to'] = aged.telegram
+
+        params = {'user': 'LCC', 'pass': '274a54de7d27dbfb66780c8c4b4dd947bc9ed00106cd96863c8e38937c7a1eaf',
+                  'channel': 'telegram',
+                  'mode': 'relay',
+                  'to': aged.telegram,
+                  'msg': message.message_text,
+                  'sendTime': message.date + ' ' + message.time}  # DD/MM/YYYY HH:mm
+
+        r = requests.post(getDeliverypath() + "sendIntervention/", data=dumps(params)).json()
 
     elif message.channel == 'Facebook':
-        params['channel'] = "fbm"
-        params['to'] = aged.facebook
+
+        params = {'user': 'LCC', 'pass': '274a54de7d27dbfb66780c8c4b4dd947bc9ed00106cd96863c8e38937c7a1eaf',
+                  'channel': 'fbm',
+                  'mode': 'relay',
+                  'to': aged.facebook,
+                  'msg': message.message_text,
+                  'sendTime': message.date + ' ' + message.time}  # DD/MM/YYYY HH:mm
+
+        r = requests.post(getDeliverypath() + "sendIntervention/", data=dumps(params)).json()
 
     elif message.channel == 'Whatsapp':
-        params['channel'] = "whatsapp"
-        params['to'] = aged.mobile_phone_number
 
-    # logging.debug("Intervention params " + dumps(params))
-    return requests.post(getDeliveryPath() + "sendIntervention/", data=dumps(params)).json() if 'to' in params else ""
+        params = {'user': 'LCC', 'pass': '274a54de7d27dbfb66780c8c4b4dd947bc9ed00106cd96863c8e38937c7a1eaf',
+                  'channel': 'whatsapp',
+                  'mode': 'relay',
+                  'to': aged.mobile_phone_number,
+                  'msg': message.message_text,
+                  'sendTime': message.date + ' ' + message.time}  # DD/MM/YYYY HH:mm
 
+        print params
+        r = requests.post(getDeliverypath() + "sendIntervention/", data=dumps(params)).json()
+
+    return r

@@ -40,7 +40,7 @@ def schedule(request, resource, template, aged):
         nmsg = template.nmsgmax
 
     # creates miniplan that is a list of messages
-    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in range(nmsg)]
+    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in xrange(nmsg)]
 
     channels = getChannelsAvailable(template, aged)
 
@@ -172,7 +172,7 @@ def scheduleEDPPendulum(request, resource, template, aged):
         nmsg = template.nmsgmax
 
     # creates miniplan that is a list of messages
-    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in range(nmsg)]
+    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in xrange(nmsg)]
 
     channels = getChannelsAvailable(template, aged)
 
@@ -262,7 +262,7 @@ def scheduleLPendulum(request, resource, template, aged):
     else:
         nmsg = template.nmsgmax
 
-    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in range(nmsg)]
+    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in xrange(nmsg)]
 
     valid_interval = endtime - startime
     if valid_interval > period:
@@ -356,7 +356,7 @@ def schedulePPendulum(request, resource, template, aged):
     else:
         nmsg = template.nmsgmax
 
-    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in range(nmsg)]
+    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in xrange(nmsg)]
 
     miniplanID = uuid.uuid4()
 
@@ -425,7 +425,7 @@ def scheduleEquallyDividedPeriod(request, resource, template, aged):
     :param aged: a user class
     :return: a miniplan that is a list of messages class with all the fields completed
     '''
-    print("Schedule Day")
+    print "Schedule Day"
     errors = {}
 
     if type(request.from_date) is not datetime:
@@ -449,7 +449,7 @@ def scheduleEquallyDividedPeriod(request, resource, template, aged):
     step_send_msg = valid_interval / nmsg
 
     # creates miniplan that is a list of messages
-    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in range(nmsg)]
+    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in xrange(nmsg)]
 
     channels = getChannelsAvailable(template, aged)
 
@@ -500,7 +500,7 @@ def scheduleLogarithmic(request, resource, template, aged):
     :param aged: a user class
     :return: a miniplan that is a list of messages class with all the fields completed
     '''
-    print("Schedule Day")
+    print "Schedule Day"
     errors = {}
 
     if type(request.from_date) is not datetime:
@@ -522,7 +522,7 @@ def scheduleLogarithmic(request, resource, template, aged):
     else:
         nmsg = template.nmsgmax
 
-    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in range(nmsg)]
+    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in xrange(nmsg)]
 
     valid_interval = endtime - startime
     if valid_interval > period:
@@ -571,7 +571,7 @@ def scheduleLogarithmic(request, resource, template, aged):
 
 
 def schedulePeriodic(request, resource, template, aged):
-    print ("Schedule Day")
+    print "Schedule Day"
     errors = {}
 
     if type(request.from_date) is not datetime:
@@ -597,7 +597,7 @@ def schedulePeriodic(request, resource, template, aged):
     else:
         nmsg = template.nmsgmax
 
-    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in range(nmsg)]
+    miniplan = [Message(count, aged.aged_id, intervention_session_id=1) for count in xrange(nmsg)]
 
     channels = getChannelsAvailable(template, aged)
 

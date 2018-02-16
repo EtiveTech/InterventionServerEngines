@@ -52,5 +52,5 @@ def channelWithProbabilityNumpy(channels):
         channel_prob = [0.5, 0.25, 0.15, 0.1]
     elif len(channels) == 5:
         channel_prob = [0.45, 0.27, 0.13, 0.09, 0.04]
-    print(choice(channels, 1, p=channel_prob))
+    print choice(channels, 1, p=channel_prob)
     return choice(channels, 1, p=channel_prob)

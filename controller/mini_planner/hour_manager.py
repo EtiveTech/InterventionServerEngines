@@ -25,7 +25,7 @@ def scheduleHour(user, time):
         elif user.hour_preference == "1":
             return datetime.strptime(str(rnd.choice(afternoon)) + ':' + minutes, '%H:%M').time()
         else:
-            print("User hour preference error")
+            print "User hour preference error"
             return
     else:
         if user.hour_preference is None:
@@ -47,7 +47,7 @@ def scheduleHour(user, time):
                 return temp.time()
 
         else:
-            print("User hour preference error")
+            print "User hour preference error"
             return
 
 

@@ -8,6 +8,7 @@ from controller.mini_planner import message_prescheduler
 from controller.utilities import mapResource
 from model.Aged import Aged
 
+
 def launch_engine_one(json_req):
     # prendo json request
     # req = decodeRequest('{"resource_id": "In5","template_id":6,"user_id":7,"from_date":"22 Feb 2017","to_date":"10 Mar 2017"}')
