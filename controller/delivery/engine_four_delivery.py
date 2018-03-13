@@ -3,7 +3,7 @@
 
 from json import dumps
 
-# import logging
+import logging
 import requests
 import os
 import re
@@ -54,8 +54,8 @@ def sendIntervention(message, aged):
     }
 
     jsonParams = dumps(params)
-    # logging.debug("Intervention params: " + jsonParams)
+    logging.debug("Intervention params: " + jsonParams)
     result = requests.post(getDeliveryPath() + "sendIntervention/", data = jsonParams).json()
-    # logging.debug("Intervention response: " + result['response'])
+    logging.debug("Intervention response: " + result['response'])
 
     return result
